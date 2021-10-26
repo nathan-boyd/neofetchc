@@ -2,8 +2,15 @@
 
 A script to create a daily cache of neofetch for faster loading
 
+## Install
+
+```bash
+brew tap nathan-boyd/neofetchcache
+brew install nathan-boyd/neofetchcache/neofetchcache
+```
+
 ## Usage
 
 ```bash
-./neofetch_cache
+neofetchc
 ```
