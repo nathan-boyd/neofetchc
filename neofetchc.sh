@@ -2,17 +2,19 @@
 
 if ! command -v neofetch &> /dev/null
 then
-    echo "neofetch command not found"
+    echo "neofetch dependency not found"
     exit 1
 fi
 
-CACHE_FILE_NAME="$HOME/.cache/neofetch"
-MAXAGE=$(bc <<< '24*60*60')
-
-# oh you silly shell
 TRUE="0"
 FALSE="1"
+MINUTES="60"
+SECONDS="60"
+HOURS="24"
+MAXAGE=$(bc <<< $HOURS*$MINUTES*$SECONDS)
 
+
+# returns true if file age is less than the calculated max age
 function FileAgeIsLessThanMaxAge() {
 
     # file age in seconds = current_time - file_modification_time.
@@ -24,6 +26,11 @@ function FileAgeIsLessThanMaxAge() {
 
     return $FALSE
 }
+
+CACHE_DIR_NAME="$HOME/.cache"
+[ -d "$CACHE_DIR_NAME" ] || mkdir -p "$CACHE_DIR_NAME"
+
+CACHE_FILE_NAME="$CACHE_DIR_NAME/neofetch"
 
 function CreateNeofetchCache() {
     neofetch > "$CACHE_FILE_NAME"
